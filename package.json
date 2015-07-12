@@ -1,0 +1,11 @@
+{
+  "name": "mtglist",
+  "version": "0.1.0",
+  "description": "MTG Card Lister",
+  "main": "mtglist.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
