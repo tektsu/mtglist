@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "MTG Card Lister",
   "main": "mtglist.js",
+  "repository": "tektsu/mtglist",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +14,6 @@
     "pkginfo": "^0.3.0"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
-    "mocha": "^2.2.5"
+    "jasmine-node": "^1.14.5"
   }
 }
