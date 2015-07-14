@@ -1,53 +1,72 @@
 var newEntry = require('../entry_factory');
 
 describe("entry_factory", function() {
-    describe('Basic Lands get a color based on their type', function() {
+    describe('#getColor', function() {
 
-        it('sets Basic Forests to Green with no supertype', function() {
+        it('reports Basic Forests as Green', function() {
             var entry = newEntry({
                 supertypes: ['Basic'],
                 types: ['Land'],
                 colors: [''],
                 name: 'Forest'
             });
-            expect(entry.getSupertype()).toBe('');
             expect(entry.getColor()).toBe('Green');
         });
 
-        it('sets Basic Islands to Blue', function() {
+        it('reports Basic Islands as Blue', function() {
             var entry = newEntry({
                 supertypes: ['Basic'],
                 types: ['Land'],
                 colors: [''],
                 name: 'Island'
             });
-            expect(entry.getSupertype()).toBe('');
             expect(entry.getColor()).toBe('Blue');
         });
 
-        it('sets Basic Mountains to Red', function() {
+        it('reports Basic Mountains as Red', function() {
             var entry = newEntry({
                 supertypes: ['Basic'],
                 types: ['Land'],
                 colors: [''],
                 name: 'Mountain'
             });
-            expect(entry.getSupertype()).toBe('');
             expect(entry.getColor()).toBe('Red');
         });
 
-        it('sets Basic Swamps to Black', function() {
+        it('reports Basic Swamps as Black', function() {
             var entry = newEntry({
                 supertypes: ['Basic'],
                 types: ['Land'],
                 colors: [''],
                 name: 'Swamp'
             });
-            expect(entry.getSupertype()).toBe('');
             expect(entry.getColor()).toBe('Black');
         });
 
-        it('sets Basic Plains to White', function() {
+        it('reports Basic Plains as White', function() {
+            var entry = newEntry({
+                supertypes: ['Basic'],
+                types: ['Land'],
+                colors: [''],
+                name: 'Plains'
+            });
+            expect(entry.getColor()).toBe('White');
+        });
+
+        it('reports other kinds of Islands as Blue', function() {
+            var entry = newEntry({
+                supertypes: ['Basic'],
+                types: ['Land'],
+                colors: [''],
+                name: 'Snow-Covered Island'
+            });
+            expect(entry.getColor()).toBe('Blue');
+        });
+    });
+
+    describe('#getSupertype', function() {
+
+        it('reports the supertypes of Basic Lands as ""', function() {
             var entry = newEntry({
                 supertypes: ['Basic'],
                 types: ['Land'],
@@ -55,62 +74,69 @@ describe("entry_factory", function() {
                 name: 'Plains'
             });
             expect(entry.getSupertype()).toBe('');
-            expect(entry.getColor()).toBe('White');
+
         });
 
-        it('sets other kinds of Islands to Blue', function() {
-            var entry = newEntry({
-                supertypes: ['Basic'],
-                types: ['Land'],
-                colors: [''],
-                name: 'Snow-Covered Island'
-            });
-            expect(entry.getSupertype()).toBe('');
-            expect(entry.getColor()).toBe('Blue');
-        });
-    });
-
-    describe("Types and Supertypes are set correctly", function() {
-
-        it("sets the type and supertype to '' if either attribute is missing", function() {
+        it('reports the supertype as "" if there is no supertype', function() {
             var entry = newEntry({
                 name: 'Test Card'
             });
             expect(entry.getSupertype()).toBe('');
+        });
+
+        it('reports the supertype as the only value if there is only one supertype', function() {
+            var entry = newEntry({
+                supertypes: ['TestSupertype'],
+                name: 'Test Card'
+            });
+            expect(entry.getSupertype()).toBe('TestSupertype');
+        });
+
+        it('reports the supertype as the first value if there is are multiple supertypes', function() {
+            var entry = newEntry({
+                supertypes: ['TestSupertype', 'AnotherSupertype'],
+                name: 'Test Card'
+            });
+            expect(entry.getSupertype()).toBe('TestSupertype');
+        });
+    });
+
+    describe('#getType', function() {
+
+        it('reports the type as "" if there is no type', function() {
+            var entry = newEntry({
+                name: 'Test Card'
+            });
             expect(entry.getType()).toBe('');
         });
 
-        it("sets the type and supertype to the only available value when only one is given", function() {
+        it('reports the type as the only value if there is only one type', function() {
             var entry = newEntry({
-                supertypes: ['STValue1'],
-                types: ['TValue1'],
+                types: ['TestType'],
                 name: 'Test Card'
             });
-            expect(entry.getSupertype()).toBe('STValue1');
-            expect(entry.getType()).toBe('TValue1');
+            expect(entry.getType()).toBe('TestType');
         });
 
-        it("sets the type and supertype to the first value if there are multiple values", function() {
+        it('reports the type as the first value if there is are multiple types', function() {
             var entry = newEntry({
-                supertypes: ['STValue1', 'STValue2'],
-                types: ['TValue1', 'TValue2'],
+                types: ['TestType', 'AnotherType'],
                 name: 'Test Card'
             });
-            expect(entry.getSupertype()).toBe('STValue1');
-            expect(entry.getType()).toBe('TValue1');
+            expect(entry.getType()).toBe('TestType');
         });
     });
 
-    describe('Colors are set correctly', function() {
+    describe('#getColor', function() {
 
-        it("sets the color to 'Colorless' when none are present", function() {
+        it("reports the color as 'Colorless' when there are no colors", function() {
             var entry = newEntry({
                 name: 'Test Card'
             });
             expect(entry.getColor()).toBe('Colorless');
         });
 
-        it("sets the color to the given color when only one is present", function() {
+        it("reports the color as the given color when there is only one color", function() {
             var entry = newEntry({
                 colors: ['Red'],
                 name: 'Test Card'
@@ -118,7 +144,7 @@ describe("entry_factory", function() {
             expect(entry.getColor()).toBe('Red');
         });
 
-        it("sets the color to 'Multicolored' when more than one is present", function() {
+        it("reports the color as 'Multicolored' when there are multiple colors", function() {
             var entry = newEntry({
                 colors: ['Red', 'Blue'],
                 name: 'Test Card'
@@ -127,7 +153,7 @@ describe("entry_factory", function() {
         });
     });
 
-    describe('Names are set correctly', function() {
+    describe('#getName', function() {
 
         it("replaces 'Æ' with 'AE' when it occurs at the beginning of a name", function() {
             var entry = newEntry({
