@@ -5,7 +5,8 @@
   "main": "mtglist.js",
   "repository": "tektsu/mtglist",
   "scripts": {
-    "test": "./node_modules/jasmine-node/bin/jasmine-node --verbose --junitreport spec"
+    "test": "./node_modules/jasmine-node/bin/jasmine-node --verbose --junitreport spec",
+    "cover": "./node_modules/istanbul/lib/cli.js cover --include-all-sources ./node_modules/jasmine-node/bin/jasmine-node --verbose --junitreport spec"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "pkginfo": "^0.3.0"
   },
   "devDependencies": {
+    "istanbul": "^0.3.17",
     "jasmine-node": "^1.14.5"
   }
 }

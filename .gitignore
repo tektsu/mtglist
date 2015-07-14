@@ -1,4 +1,5 @@
 AllCards-x.json
-node_modules
 mtgcards-*.txt
-reports
+node_modules/
+reports/
+coverage/
