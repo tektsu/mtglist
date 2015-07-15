@@ -1,9 +1,16 @@
 "use strict";
 
-var fs = require('fs');
-
 function newListContainer() {
     var lists = {};
+
+    function generateListKey(entry) {
+        var key = entry.getColor() + '-' + entry.getType();
+        var supertype = entry.getSupertype();
+        if (supertype.length > 0) {
+            key += '-' + supertype;
+        }
+        return key;
+    }
 
     return {
 
@@ -12,37 +19,27 @@ function newListContainer() {
             if (name.match(/ token card$/)) {
                 return;
             }
-            var supertype = entry.getSupertype();
-            var type = entry.getType();
-            var color = entry.getColor();
-            if (!lists[supertype])
-                lists[supertype] = {}
-            if (!lists[supertype][type])
-                lists[supertype][type] = {}
-            if (!lists[supertype][type][color])
-                lists[supertype][type][color] = []
-            lists[supertype][type][color].push(name);
+
+            var listKey = generateListKey(entry);
+            if (!lists[listKey]) {
+                lists[listKey] = [];
+            }
+            lists[listKey].push(name);
         },
 
-        printLists: function() {
-            var supertypes = Object.keys(lists);
-            supertypes.forEach(function(supertype) {
-                var types = Object.keys(lists[supertype]);
-                types.forEach(function(type) {
-                    var colors = Object.keys(lists[supertype][type]);
-                    colors.forEach(function(color) {
-                        lists[supertype][type][color].sort(function (a, b) {
-                            return a.toLowerCase().localeCompare(b.toLowerCase());
-                        });
-                        var filename = 'mtgcards-' + color + '-' + type + '-' + supertype + '.txt';
-                        var wstream = fs.createWriteStream(filename);
-                        for (var i=0; i < lists[supertype][type][color].length; ++i) {
-                            wstream.write(lists[supertype][type][color][i] + "\n");
-                        }
-                        wstream.end();
-                    });
-                });
+        getListKeys: function() {
+            return Object.keys(lists);
+        },
+
+        getNamesForList: function(listKey) {
+            if (!lists[listKey]) {
+                return [''];
+            }
+            var names = lists[listKey].slice();
+            names.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
             });
+            return names;
         }
     };
 }
