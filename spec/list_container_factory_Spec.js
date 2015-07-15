@@ -3,7 +3,7 @@ var newListContainer = require('../list_container_factory');
 
 describe('list_container_factory', function() {
 
-    describe('#addEntry', function() {
+    describe('.addEntry', function() {
 
         beforeEach(function() {
             this.lists = newListContainer();

@@ -1,7 +1,7 @@
 var newEntry = require('../entry_factory');
 
 describe("entry_factory", function() {
-    describe('#getColor', function() {
+    describe('.getColor', function() {
 
         it('reports Basic Forests as Green', function() {
             var entry = newEntry({
@@ -64,7 +64,7 @@ describe("entry_factory", function() {
         });
     });
 
-    describe('#getSupertype', function() {
+    describe('.getSupertype', function() {
 
         it('reports the supertypes of Basic Lands as ""', function() {
             var entry = newEntry({
@@ -101,7 +101,7 @@ describe("entry_factory", function() {
         });
     });
 
-    describe('#getType', function() {
+    describe('.getType', function() {
 
         it('reports the type as "" if there is no type', function() {
             var entry = newEntry({
@@ -127,7 +127,7 @@ describe("entry_factory", function() {
         });
     });
 
-    describe('#getColor', function() {
+    describe('.getColor', function() {
 
         it("reports the color as 'Colorless' when there are no colors", function() {
             var entry = newEntry({
@@ -153,7 +153,7 @@ describe("entry_factory", function() {
         });
     });
 
-    describe('#getName', function() {
+    describe('.getName', function() {
 
         it("replaces 'Æ' with 'AE' when it occurs at the beginning of a name", function() {
             var entry = newEntry({
