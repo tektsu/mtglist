@@ -33,7 +33,7 @@ function newListContainer() {
 
         getNamesForList: function(listKey) {
             if (!lists[listKey]) {
-                return [''];
+                return [];
             }
             var names = lists[listKey].slice();
             names.sort(function (a, b) {
